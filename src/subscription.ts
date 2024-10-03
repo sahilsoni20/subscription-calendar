@@ -10,6 +10,9 @@ export type Subscription = {
   color: string;
   right: string;
   left: string;
+  translateX: number;
+  translateY: number;
+  path: string;
 };
 
 export const subscriptionData: Subscription[] = [
@@ -23,8 +26,12 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 83.88,
     dayOfMonth: 2,
     color: "rgb(94, 106, 210)",
-    right: 'auto',
-    left: 'auto',
+    right: "auto",
+    left: "auto",
+    translateX: 267.44,
+    translateY: -64.4471,
+    path: "M 200 50 A 150 150 0 0 1 293.11358897972116 82.3995767553724",
+
   },
   {
     id: 2,
@@ -36,8 +43,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 52,
     dayOfMonth: 7,
     color: "rgb(229, 9, 20)",
-    right: 'auto',
-    left: 'auto',
+    right: "auto",
+    left: "auto",
+    translateX: 377.556,
+    translateY: 35.4732,
+    path: "M 320.3780496218046 110.50628419128896 A 150 150 0 0 1 346.23804461950226 166.61685596196088",
   },
   {
     id: 3,
@@ -49,8 +59,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 95.88,
     dayOfMonth: 11,
     color: "rgb(62, 207, 142)",
-    right: '0',
-    left: 'auto',
+    right: "0",
+    left: "auto",
+    translateX: 378.477,
+    translateY: 192.496,
+    path: "M 349.8952975464356 205.60355007700946 A 150 150 0 0 1 304.1953095373159 307.9042977384262",
   },
   {
     id: 4,
@@ -62,8 +75,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 71.88,
     dayOfMonth: 12,
     color: "rgb(255, 255, 255)",
-    right: 'auto',
-    left: '0',
+    right: "auto",
+    left: "0",
+    translateX: 246.309,
+    translateY: 300.455,
+    path: "M 272.7172531571595 331.1952784717406 A 150 150 0 0 1 189.8400043228092 349.65551940319295",
   },
   {
     id: 5,
@@ -75,8 +91,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 35.88,
     dayOfMonth: 15,
     color: "rgb(29, 185, 84)",
-    right: 'auto',
-    left: 'auto',
+    right: "auto",
+    left: "auto",
+    translateX: 118.474,
+    translateY: 284.155,
+    path: "M 151.45249915415997 341.9265308588326 A 150 150 0 0 1 113.32702547962042 322.42465228780367",
   },
   {
     id: 6,
@@ -88,8 +107,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 107.88,
     dayOfMonth: 24,
     color: "rgb(0, 119, 181)",
-    right: '0',
-    left: 'auto',
+    right: "0",
+    left: "auto",
+    translateX: 21.4977,
+    translateY: 164.264,
+    path: "M 84.5945038673335 295.82051691768885 A 150 150 0 0 1 52.12149714055079 174.86141626805772",
   },
   {
     id: 7,
@@ -101,8 +123,11 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 35.88,
     dayOfMonth: 27,
     color: "rgb(109, 12, 204)",
-    right: 'auto',
-    left: '0',
+    right: "auto",
+    left: "0",
+    translateX: 45.3904,
+    translateY: 11.9235,
+    path: "M 63.66667917182724 137.44421983571368 A 150 150 0 0 1 86.89891265916208 101.47008554596148",
   },
   {
     id: 8,
@@ -114,7 +139,10 @@ export const subscriptionData: Subscription[] = [
     totalPaid: 41.5,
     dayOfMonth: 30,
     color: "rgb(255, 153, 0)",
-    right: '',
-    left: 'auto',
+    right: "",
+    left: "auto",
+    translateX: 126.301,
+    translateY: -57.9348,
+    path: "M 116.2541571291363 75.55469554117919 A 150 150 0 0 1 161.17714323462164 55.11112605663982",
   },
 ];
