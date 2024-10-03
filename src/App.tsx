@@ -1,63 +1,17 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-
-type Subscription = {
-  id: number;
-  app: string;
-  icon: string; // URL or component for app icon
-  amount: number;
-  nextPaymentDate: string;
-  totalPaid: number;
-  cycle: string; // e.g. "monthly"
-  dayOfMonth: number; // e.g. 30 for the 30th of each month
-  borderColor: string; // Tailwind border color class
-};
-
-const subscriptionData: Subscription[] = [
-  {
-    id: 1,
-    app: "Amazon",
-    icon: "/icons/amazon.png",
-    amount: 3.45,
-    nextPaymentDate: "2024-10-30",
-    totalPaid: 41.4,
-    cycle: "monthly",
-    dayOfMonth: 30,
-    borderColor: "border-yellow-500",
-  },
-  {
-    id: 2,
-    app: "Netflix",
-    icon: "/icons/netflix.png",
-    amount: 9.99,
-    nextPaymentDate: "2024-10-07",
-    totalPaid: 120,
-    cycle: "monthly",
-    dayOfMonth: 7,
-    borderColor: "border-red-500",
-  },
-  {
-    id: 3,
-    app: "Spotify",
-    icon: "/icons/spotify.png",
-    amount: 4.99,
-    nextPaymentDate: "2024-10-14",
-    totalPaid: 59.88,
-    cycle: "monthly",
-    dayOfMonth: 14,
-    borderColor: "border-green-500",
-  },
-];
-
+import { AnimatePresence, motion } from "framer-motion";
+import { Subscription, subscriptionData } from "./subscription";
 
 const Calendar = () => {
-  const daysInMonth = new Array(30).fill(null).map((_, index) => index + 1);
+  const daysInMonth = new Array(30)
+    .fill(null)
+    .map((_, index) => (index + 1).toString().padStart(2, "0"));
   const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   const [hoveredSubscription, setHoveredSubscription] =
     useState<Subscription | null>(null);
 
   return (
-    <main className="w-full min-h-screen flex flex-col items-center justify-start md:justify-center px-4 py-10 bg-black text-white">
+    <main className="overflow-visible w-full min-h-screen flex flex-col items-center justify-start md:justify-center px-4 py-10 bg-black text-white">
       <div className="relative mx-auto my-10 w-full max-w-lg">
         <div className="w-full flex-col flex gap-4">
           <div className="w-full flex items-center justify-between">
@@ -83,12 +37,27 @@ const Calendar = () => {
           </div>
 
           <div className="grid grid-cols-7 gap-2">
-            <div className="relative flex items-end justify-center py-1 bg-zinc-700/20" style={{height: "4rem", borderRadius: "16px"}}><div className="flex flex-col items-center justify-center"></div></div>
-            <div className="relative flex items-end justify-center py-1 bg-zinc-700/20" style={{height: "4rem", borderRadius: "16px"}}><div className="flex flex-col items-center justify-center"></div></div>
-            <div className="relative flex items-end justify-center py-1 bg-zinc-700/20" style={{height: "4rem", borderRadius: "16px"}}><div className="flex flex-col items-center justify-center"></div></div>
+            <div
+              className="relative flex items-end justify-center py-1 bg-zinc-700/20"
+              style={{ height: "4rem", borderRadius: "16px" }}
+            >
+              <div className="flex flex-col items-center justify-center"></div>
+            </div>
+            <div
+              className="relative flex items-end justify-center py-1 bg-zinc-700/20"
+              style={{ height: "4rem", borderRadius: "16px" }}
+            >
+              <div className="flex flex-col items-center justify-center"></div>
+            </div>
+            <div
+              className="relative flex items-end justify-center py-1 bg-zinc-700/20"
+              style={{ height: "4rem", borderRadius: "16px" }}
+            >
+              <div className="flex flex-col items-center justify-center"></div>
+            </div>
             {daysInMonth.map((day) => {
               const subscription = subscriptionData.find(
-                (sub) => sub.dayOfMonth === day
+                (sub) => sub.dayOfMonth === Number(day)
               );
 
               return (
@@ -106,50 +75,102 @@ const Calendar = () => {
                       subscription ? "cursor-pointer" : ""
                     }`}
                   >
-                    <span className="text-sm text-white">{day}</span>
-
-                    {/* Show icon if there's a subscription on this day */}
                     {subscription && (
                       <img
                         src={subscription.icon}
                         alt={subscription.app}
-                        className={`absolute inset-0 h-8 w-8 m-auto ${
-                          hoveredSubscription?.dayOfMonth === day
+                        className={`w-6 h-6 mb-1 hidden sm:block ${
+                          hoveredSubscription?.dayOfMonth === Number(day)
                             ? "opacity-100"
                             : "opacity-80"
                         }`}
                       />
                     )}
 
-                    {/* Apply border color on hover */}
-                    {hoveredSubscription &&
-                      hoveredSubscription.dayOfMonth === day && (
-                        <div
-                          className={`absolute inset-0 border-4 rounded-lg ${hoveredSubscription.borderColor} transition-all duration-300`}
-                        ></div>
-                      )}
+                    <span className="text-sm text-white">{day}</span>
+
+                    {subscription && (
+                      <div
+                        className="absolute top-2 right-2 size-2 rounded-full custom-cursor-on-hover"
+                        style={{ background: subscription.color }}
+                      ></div>
+                    )}
 
                     {/* Show details only if hoveredSubscription matches the day */}
                     {hoveredSubscription &&
-                      hoveredSubscription.dayOfMonth === day && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          className="absolute top-full left-0 mt-2 w-48 bg-gray-900 text-white p-2 rounded-md shadow-lg z-10"
-                        >
-                          <p className="font-bold">{hoveredSubscription.app}</p>
-                          <p>€{hoveredSubscription.amount}</p>
-                          <p>Next: {hoveredSubscription.nextPaymentDate}</p>
-                          <p>Total: €{hoveredSubscription.totalPaid}</p>
-                        </motion.div>
+                      hoveredSubscription.dayOfMonth === Number(day) && (
+                        <AnimatePresence>
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.2, y: 10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 1, scale: 0.2, y: 10 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute bottom-full w-[250px]"
+                            style={{
+                              left: `${hoveredSubscription.left}`,
+                              right: `${hoveredSubscription.right}`,
+                              opacity: "1",
+                              willChange: "auto",
+                              transform: "none",
+                            }}
+                          >
+                            <div
+                              className="w-full mb-1 p-3 text-white bg-zinc-900 font-medium rounded-2xl border-2 border-zinc-700"
+                              style={{ borderColor: hoveredSubscription.color }}
+                            >
+                              <div className="w-full flex items-center justify-between mt-1.5 mb-2">
+                                <div className="flex items-center gap-1">
+                                  <img
+                                    src={hoveredSubscription.icon}
+                                    alt={hoveredSubscription.app}
+                                    className="w-[20px]"
+                                  />
+                                  <span className="text-lg">
+                                    {hoveredSubscription.app}
+                                  </span>
+                                </div>
+                                <span className="font-semibold text-lg">
+                                  €{hoveredSubscription.amount}
+                                </span>
+                              </div>
+
+                              <div className="w-full flex items-center justify-between mt-1.5 mb-2">
+                                <span className="text-sm">
+                                  {hoveredSubscription.nextPaymentDate}
+                                </span>
+                                <span className="text-xs opacity-60">
+                                  Next payment
+                                </span>
+                              </div>
+
+                              <div className="w-full flex items-center justify-between">
+                                <span className="text-xs">
+                                  Total since {hoveredSubscription.totalSince}
+                                </span>
+                                <span className="text-md font-semibold">
+                                  €{hoveredSubscription.totalPaid}
+                                </span>
+                              </div>
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
                       )}
                   </div>
                 </div>
               );
             })}
-            <div className="relative flex items-end justify-center py-1 bg-zinc-700/20" style={{height: "4rem", borderRadius: "16px"}}><div className="flex flex-col items-center justify-center"></div></div>
-            <div className="relative flex items-end justify-center py-1 bg-zinc-700/20" style={{height: "4rem", borderRadius: "16px"}}><div className="flex flex-col items-center justify-center"></div></div>
+            <div
+              className="relative flex items-end justify-center py-1 bg-zinc-700/20"
+              style={{ height: "4rem", borderRadius: "16px" }}
+            >
+              <div className="flex flex-col items-center justify-center"></div>
+            </div>
+            <div
+              className="relative flex items-end justify-center py-1 bg-zinc-700/20"
+              style={{ height: "4rem", borderRadius: "16px" }}
+            >
+              <div className="flex flex-col items-center justify-center"></div>
+            </div>
           </div>
         </div>
       </div>
