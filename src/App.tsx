@@ -19,9 +19,8 @@ const Calendar = () => {
     <main className="overflow-visible w-full min-h-screen flex flex-col items-center justify-start md:justify-center px-4 py-10 bg-black text-white">
       <div className="relative mx-auto my-10 w-full max-w-lg">
         {showCalendar ? (
-          <motion.div
+          <div
             key="calendar"
-            animate={{ x: [null, 100, 0], y: [null, 100, 0] }}
             className="w-full flex-col flex gap-4"
           >
             <div className="w-full flex items-center justify-between">
@@ -182,7 +181,7 @@ const Calendar = () => {
                 <div className="flex flex-col items-center justify-center"></div>
               </div>
             </div>
-          </motion.div>
+          </div>
         ) : (
           <motion.div
             animate={{ rotate: 360 }}
